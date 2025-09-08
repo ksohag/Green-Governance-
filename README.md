@@ -1,6 +1,6 @@
 # Green-Governance-
 File RAW_DATA_LEGIS_EXE.zip contains the raw data collected from https://climate-laws.org/. All data about number of documents concerning legislation and execution are there 
-
+paper_data.dta is our compiled data in Stata format. 
 
 DATA &amp; CODE
 Energy legislation serves as an essential tool for promoting the renewable energy transition in different countries. Evaluating the effectiveness of laws and policies is a long-standing research topic that requires a well-designed methodology for both data collection and analysis. Existing studies have already used the number of legal documents adopted as an indicator of government activity in promoting the energy transition. One of the well-known and widely cited sources of knowledge on climate regulations is the Climate Change Laws website, which collects information on legal documents relevant to climate change issues. This database includes information on 196 UNFCCC member countries (as well as 3 non-member territories) and collects basic information on regulatory activity, including documents relating to one of the designated aspects, among which are climate change mitigation, adaptation, and disaster risk management. Documents in the database regulate national and sectoral levels. Importantly, energy legislation is included in the collection even if climate change is not explicitly mentioned in the text of the document. Moreover, the database includes documentation from UNFCCC portals that provide an overview of countries' national activities to address climate change. 
