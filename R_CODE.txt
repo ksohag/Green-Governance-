@@ -1,0 +1,55 @@
+
+# 1. Filter for Energy-related laws, exclude UNFCCC
+energy_data <- csv_data %>%
+  filter(str_detect(Sector, "Energy"),
+         Category %in% c("Executive", "Legislative"))
+
+# 2. Remove duplicates 
+energy_data1 <- energy_data %>%
+  rename(document_title = `Document Title`)
+
+energy_data_clean <-energy_data1[!duplicated(energy_data1$document_title), ]
+
+# 3. Group and summarize
+grouped_data <- energy_data_clean %>%
+  group_by(Geographies, Year, Category) %>%
+  summarize(Count = n(), .groups = "drop")
+
+# 4. Pivot wider
+spread_data <- grouped_data %>%
+  pivot_wider(names_from = Category,
+              values_from = Count,
+              values_fill = 0)
+
+# 5 . Calculate Total
+final_data <- spread_data %>%
+  mutate(Total = Executive + Legislative)
+
+# 6. Complete the grid
+all_countries <- unique(csv_data$Geographies)
+all_years <- 1976:2024
+
+complete_grid <- expand_grid(Geographies = all_countries, Year = all_years)
+
+# 7. Join with the complete grid
+full_data <- complete_grid %>%
+  left_join(final_data, by = c("Geographies", "Year")) %>%
+  mutate(Executive = replace_na(Executive, 0),
+         Legislative = replace_na(Legislative, 0),
+         Total = replace_na(Total, 0))
+
+# 8. Calculate cumulative sums
+cumulative_data <- full_data %>%
+  group_by(Geographies) %>%
+  mutate(Cumulative_Executive = cumsum(Executive),
+         Cumulative_Legislative = cumsum(Legislative),
+         Cumulative_Total = cumsum(Total)) %>%
+  ungroup()
+
+# 9. Arrange the data
+arranged_data <- cumulative_data %>%
+  arrange(Geographies, Year)
+
+
+
+
